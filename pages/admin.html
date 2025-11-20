@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Clínica Salud+ | Panel de Administración</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+  <link rel="preload" href="../assets/css/adminlte.css" as="style" />
+  <link rel="stylesheet" href="../assets/css/adminlte.css" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css"
+    integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0=" crossorigin="anonymous" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    crossorigin="anonymous" />
+
+</head>
+
+<body class="layout-fixed sidebar-expand-lg sidebar-open bg-body-tertiary">
+  <div class="app-wrapper">
+    <nav class="app-header navbar navbar-expand bg-body">
+      <div class="container-fluid">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button">
+              <i class="bi bi-list"></i>
+            </a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown user-menu">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+              <img src="../assets/img/user2-160x160.jpg" class="user-image rounded-circle shadow"
+                alt="Imagen de Administrador" />
+              <span class="d-none d-md-inline">Administrador</span>
+            </a>
+
+            <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
+              <li class="user-header bg-light text-dark" style="padding: 10px 10px;">
+                <img src="../assets/img/user2-160x160.jpg" class="rounded-circle shadow" alt="Imagen de Usuario"
+                  style="width: 60px; height: 60px; margin-bottom: 5px;" />
+                <p class="mb-0">
+                  Administrador
+                </p>
+              </li>
+
+              <li class="user-footer">
+                <div class="d-grid">
+                  <a href="#" class="btn btn-danger w-100" id="logout-button-navbar">Cerrar Sesión</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
+      <div class="sidebar-brand">
+        <a href="../index.html" class="brand-link">
+          <img src="../assets/img/AdminLTELogo.png" alt="Logo" class="brand-image opacity-75 shadow" />
+          <span class="brand-text fw-light">Clínica Salud+</span>
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <nav class="mt-2">
+          <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="navigation"
+            aria-label="Main navigation" data-accordion="false" id="navigation">
+
+            <li class="nav-item">
+              <a href="#dashboard" class="nav-link active" data-content-id="dashboard-view">
+                <i class="nav-icon bi bi-speedometer2"></i>
+                <p>Dashboard</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="#doctores" class="nav-link" data-content-id="doctors-view">
+                <i class="nav-icon bi bi-person-badge-fill"></i>
+                <p>Gestión de Doctores</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="#citas" class="nav-link" data-content-id="appointments-view">
+                <i class="nav-icon bi bi-calendar-check"></i>
+                <p>Gestión de Citas</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="#usuarios" class="nav-link" data-content-id="users-view">
+                <i class="nav-icon bi bi-people-fill"></i>
+                <p>Gestión de Usuarios</p>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </aside>
+    <main class="app-main">
+      <div class="app-content-header">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-6">
+              <h3 class="mb-0" id="main-title">Dashboard</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="app-content">
+        <div class="container-fluid" id="admin-content-container">
+
+          <div class="row" id="metrics-row">
+            <div class="col-12 col-sm-6 col-md-3">
+              <div class="info-box text-bg-warning shadow-sm">
+                <span class="info-box-icon"><i class="bi bi-clock-fill"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Turnos Pendientes</span>
+                  <span class="info-box-number" id="metric-pending-appointments">0</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3">
+              <div class="info-box text-bg-success shadow-sm">
+                <span class="info-box-icon"><i class="bi bi-check-circle-fill"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Turnos Confirmados</span>
+                  <span class="info-box-number" id="metric-confirmed-appointments">0</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3">
+              <div class="info-box text-bg-primary shadow-sm">
+                <span class="info-box-icon"><i class="bi bi-person-heart"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Total de Doctores</span>
+                  <span class="info-box-number" id="metric-total-doctors">0</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3">
+              <div class="info-box text-bg-info shadow-sm">
+                <span class="info-box-icon"><i class="bi bi-person-fill"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Total de Pacientes</span>
+                  <span class="info-box-number" id="metric-total-patients">0</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-md-5">
+              <div class="card mb-4">
+                <div class="card-header">
+                  <h3 class="card-title">Estado de los Turnos</h3>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                      <div id="status-pie-chart" style="height: 250px;"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer p-0">
+                  <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                      <a href="#" class="nav-link">Confirmados <span class="float-end text-success"
+                          id="confirmed-count">0</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="#" class="nav-link">Pendientes <span class="float-end text-warning"
+                          id="pending-count">0</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="#" class="nav-link">Cancelados <span class="float-end text-danger"
+                          id="cancelled-count">0</span></a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title" id="content-table-title">Gestión de Doctores</h3>
+                </div>
+                <div class="card-body" id="main-content-table-body">
+                  <p class="text-muted"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- <footer class="app-footer">
+            <div class="float-end d-none d-sm-inline">Proyecto TPI - Programación III</div>
+            <strong>
+                Copyright &copy; 2024&nbsp; Clínica Salud+.
+            </strong>
+            Todos los derechos reservados.
+        </footer> -->
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js"
+    integrity="sha256-+vh8GkaU7C9/wbSLIcwq82tQ2wTf44aOHA8HlBMwRI8=" crossorigin="anonymous"></script>
+
+  <script src="../assets/js/adminlte.js"></script>
+
+  <script type="module" src="../assets/js/admin.js"></script>
+
+</body>
+
+</html>
