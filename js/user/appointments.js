@@ -1,61 +1,74 @@
-import { getUser, logout } from '../modules/auth.js';
-import { getDoctors } from '../services/doctorsService.js';
-import { addAppointment } from '../services/appointmentsService.js';
+import { getAllDoctors } from "../services/doctorsService.js";
+import { createAppointment } from "../services/appointmentsService.js";
+import { showAlert } from "../modules/utils.js";
+import { getSession } from "../modules/auth.js"; // Se importa getSession
+
 
 document.addEventListener('DOMContentLoaded', () => {
-    const user = getUser();
-    if (!user) {
-        logout();
-        return;
-    }
+    const doctorSelect = document.getElementById('doctor-select');
+    const form = document.getElementById('form-nueva-cita');
+    const horaCitaSelect = document.getElementById('hora-cita');
 
-    const usernameDisplay = document.getElementById('username-display');
-    if (usernameDisplay) {
-        usernameDisplay.textContent = user.username;
-    }
+    getAllDoctors().then(response => {
+        const doctors = response;
+        doctors.forEach(doctor => {
+            const option = document.createElement('option');
+            option.value = doctor.id;
+            option.textContent = `${doctor.nombre} - ${doctor.especialidad}`;
+            doctorSelect.appendChild(option);
+        });
+    });
 
-    const usernameDisplay2 = document.getElementById('username-display-2');
-    if (usernameDisplay2) {
-        usernameDisplay2.textContent = user.username;
-    }
 
-    const logoutButton = document.getElementById('logout-button');
-    if (logoutButton) {
-        logoutButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            logout();
-        });
-    }
+    const availableHours = ['09:00', '10:00', '11:00', '12:00', '14:00', '15:00', '16:00', '17:00'];
+    availableHours.forEach(hour => {
+        const option = document.createElement('option');
+        option.value = hour;
+        option.textContent = hour;
+        horaCitaSelect.appendChild(option);
+    });
 
-    const doctorSelect = document.getElementById('doctor-select');
-    const doctors = getDoctors();
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
 
-    if (doctorSelect) {
-        doctors.forEach(doctor => {
-            const option = document.createElement('option');
-            option.value = doctor.id;
-            option.textContent = `${doctor.name} - ${doctor.specialty}`;
-            doctorSelect.appendChild(option);
-        });
-    }
+        const doctorId = doctorSelect.value;
+        const fecha = document.getElementById('fecha-cita').value;
+        const hora = horaCitaSelect.value;
 
-    const appointmentForm = document.getElementById('appointment-form');
-    if (appointmentForm) {
-        appointmentForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const doctorId = document.getElementById('doctor-select').value;
-            const date = document.getElementById('date').value;
-            const time = document.getElementById('time').value;
-            const newAppointment = {
-                userId: user.id,
-                doctorId,
-                date,
-                time,
-                status: 'pending'
-            };
-            addAppointment(newAppointment);
-            alert('Appointment created successfully');
-            window.location.href = '/pages/user/my-appointments.html';
-        });
-    }
+        // 1. Obtener la sesión del usuario
+        const user = getSession(); // Obtiene el objeto completo del usuario en sesión
+
+        // 2. Validar que el usuario esté logeado
+        if (!user || !user.id) {
+            showAlert('Error: No se encontró la sesión del paciente. Por favor, inicie sesión.', 'danger');
+            return; 
+        }
+
+        // 3. Asignar el ID real
+        const patientId = user.id; 
+        const estado = 'pendiente';
+
+        // Se agrega patientId a la condición de validación
+        if (doctorId && fecha && hora && patientId) { 
+            const appointmentData = {
+                patientId: parseInt(patientId), // Usa el ID del usuario en sesión
+                doctorId: parseInt(doctorId),
+                fecha,
+                hora,
+                estado
+            };
+
+            createAppointment(appointmentData)
+                .then(() => {
+                    showAlert('Cita creada exitosamente', 'success');
+                    form.reset();
+                })
+                .catch(error => {
+                    console.error('Error al crear la cita:', error);
+                    showAlert('Hubo un error al crear la cita. Por favor, intente de nuevo.', 'danger');
+                });
+        } else {
+            showAlert('Por favor, complete todos los campos.', 'warning');
+        }
+    });
 });

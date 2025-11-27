@@ -1,4 +1,4 @@
-const url_UD = "https://691cca033aaeed735c9221de.mockapi.io"; //url para usuarios y doctores
+const url_UD = "https://6913ae6ef34a2ff1170cdbba.mockapi.io/api/TpiProg3"; //url para usuarios y doctores
 const url_AP = "https://6926791a26e7e41498fa6d50.mockapi.io"; //url para citas
 
 async function requestUD(path, { method = "GET", body = null, headers = {} } = {}) {

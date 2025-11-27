@@ -1,4 +1,4 @@
-import { registerUser as createUser, getAllUsers, loginUser as serviceLogin } from "../services/usersService.js"; 
+import { createUser, getAllUsers, loginUser as serviceLogin } from "../services/usersService.js"; 
 
 const USUARIO_ROLE = "user";
 const ADMIN_ROLE = "admin";
@@ -13,7 +13,7 @@ function saveSession(user) {
     localStorage.setItem(SESSION_KEY, JSON.stringify(user));
 }
 
-// Función para obtener la sesión actual
+// Función para obtener la sesión actual (usada en tu archivo de citas)
 export function getSession() {
     const session = localStorage.getItem(SESSION_KEY);
     return session ? JSON.parse(session) : null;
@@ -27,10 +27,7 @@ export function logout() {
 
 /**
  * Registra un nuevo usuario con rol "user".
- * @param {string} nombre 
- * @param {string} email 
- * @param {string} password 
- * @returns {object} El objeto de usuario creado.
+ * (Código original)
  */
 export async function registerUser(nombre, email, password) {
     if (!nombre || !email || !password) {
@@ -38,7 +35,6 @@ export async function registerUser(nombre, email, password) {
     }
 
     try {
-        // Crea el nuevo usuario en la API con rol de paciente
         const newUser = await createUser({
             nombre,
             email,
@@ -46,7 +42,6 @@ export async function registerUser(nombre, email, password) {
             role: USUARIO_ROLE 
         });
         
-        // Guarda la sesión y devuelve el usuario
         saveSession(newUser);
         return newUser;
         
@@ -57,11 +52,7 @@ export async function registerUser(nombre, email, password) {
 }
 
 /**
- * Intenta iniciar sesión con el email y la contraseña.
- * Usa el servicio usersService.loginUser que maneja fallback si hace falta.
- * @param {string} email 
- * @param {string} password 
- * @returns {object} El objeto de usuario autenticado.
+ * Intenta iniciar sesión. Llama al servicio y guarda la sesión si es exitoso.
  */
 export async function loginUser(email, password) {
     if (!email || !password) {
@@ -69,20 +60,18 @@ export async function loginUser(email, password) {
     }
 
     try {
-        // Delegar la lógica de autenticación al servicio
+        // Llama a loginUser en usersService.js a través del alias serviceLogin
         const user = await serviceLogin({ email, password });
-        saveSession(user);
+        saveSession(user); // Guarda la sesión
         return user;
     } catch (err) {
         console.error("Error en loginUser (auth):", err);
-        // Normalizar mensaje para UI
         throw new Error(err?.message || "Error al iniciar sesión. Intenta nuevamente.");
     }
 }
 
 /**
  * Redirige al usuario al dashboard correcto según su rol.
- * @param {object} user 
  */
 export function redirectToDashboard(user) {
     if (user?.role === ADMIN_ROLE) {
