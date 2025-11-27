@@ -1,17 +1,18 @@
-import { getDoctors } from './services/doctorsService.js';
+import { getAllDoctors } from '../services/doctorsService.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const doctorsTableBody = document.getElementById('doctorsTableBody');
 
     async function renderDoctors() {
         try {
-            const doctors = await getDoctors();
+            const doctors = await getAllDoctors();
             doctorsTableBody.innerHTML = '';
             doctors.forEach(doctor => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td>${doctor.name}</td>
-                    <td>${doctor.specialty}</td>
+                    <td>${doctor.nombre}</td>
+                    <td>${doctor.especialidad}</td>
+                    <td>${doctor.diasDisponibles}</td>
                 `;
                 doctorsTableBody.appendChild(tr);
             });

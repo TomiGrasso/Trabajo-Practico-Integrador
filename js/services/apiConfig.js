@@ -1,5 +1,5 @@
-const url_UD = "https://691cca033aaeed735c9221de.mockapi.io";
-const url_AP = "https://6926791a26e7e41498fa6d50.mockapi.io";
+const url_UD = "https://691cca033aaeed735c9221de.mockapi.io"; //url para usuarios y doctores
+const url_AP = "https://6926791a26e7e41498fa6d50.mockapi.io"; //url para citas
 
 async function requestUD(path, { method = "GET", body = null, headers = {} } = {}) {
   const url = `${url_UD}${path}`;

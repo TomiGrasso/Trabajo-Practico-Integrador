@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 tr.innerHTML = `
                     <td>${doctor.nombre}</td>
                     <td>${doctor.especialidad}</td>
+                    <td>${doctor.diasDisponibles}</td>
+
                     <td>
                         <button class="btn btn-danger btn-sm delete-doctor" data-id="${doctor.id}">Eliminar</button>
                     </td>
@@ -30,11 +32,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const doctorName = document.getElementById('doctorName').value;
         const doctorSpecialty = document.getElementById('doctorSpecialty').value;
-
+        const doctorAvailableDays = document.getElementById('doctorAvailableDays').value;
         const newDoctor = {
             nombre: doctorName,
             especialidad: doctorSpecialty,
-            diasDisponibles: []
+            diasDisponibles: doctorAvailableDays
         };
         try {
             await createDoctor(newDoctor);

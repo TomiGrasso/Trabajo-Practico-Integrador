@@ -1,7 +1,7 @@
-import { getUser, logout } from './modules/auth.js';
-import { getAppointments } from './services/appointmentsService.js';
-import { getAllUsers } from './services/usersService.js';
-import { getDoctors } from './services/doctorsService.js';
+import { getUser, logout } from '../modules/auth.js';
+import { getAppointments } from '../services/appointmentsService.js';
+import { getAllUsers } from '../services/usersService.js';
+import { getDoctors } from '../services/doctorsService.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const user = getUser();

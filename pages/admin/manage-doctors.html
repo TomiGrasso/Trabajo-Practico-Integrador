@@ -11,10 +11,18 @@
 
   <link rel="preload" href="/css/adminlte.css" as="style" />
   <link rel="stylesheet" href="/css/adminlte.css" />
+<<<<<<< HEAD
     
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
         integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+=======
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    integrity="sha512-1ycn6IcaQQ40B7rT/P5wK/tL45jDAB5A9aU6W5jPz5KzFwA3X4wLhCqg0F2gT8k6/A7eB9/j6R6O2xKxO6g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+>>>>>>> origin/main
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css"
     integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0=" crossorigin="anonymous" />
@@ -54,7 +62,8 @@
 
               <li class="user-footer">
                 <div class="d-grid">
-                  <a href="/pages/register-login/login.html" class="btn btn-danger w-100" id="logout-button">Cerrar Sesión</a>
+                  <a href="/pages/register-login/login.html" class="btn btn-danger w-100" id="logout-button">Cerrar
+                    Sesión</a>
                 </div>
               </li>
             </ul>
@@ -118,51 +127,56 @@
       <div class="app-content">
         <div class="container-fluid" id="user-content-container">
 
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Agregar Doctor</h3>
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Agregar Doctor</h3>
+            </div>
+            <div class="card-body">
+              <form id="addDoctorForm">
+                <div class="mb-3">
+                  <label for="doctorName" class="form-label">Nombre del Doctor</label>
+                  <input type="text" class="form-control" id="doctorName" required>
                 </div>
-                <div class="card-body">
-                    <form id="addDoctorForm">
-                        <div class="mb-3">
-                            <label for="doctorName" class="form-label">Nombre del Doctor</label>
-                            <input type="text" class="form-control" id="doctorName" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="doctorSpecialty" class="form-label">Especialidad</label>
-                            <input type="text" class="form-control" id="doctorSpecialty" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Agregar Doctor</button>
-                    </form>
+                <div class="mb-3">
+                  <label for="doctorSpecialty" class="form-label">Especialidad</label>
+                  <input type="text" class="form-control" id="doctorSpecialty" required>
                 </div>
+                <div class="mb-3">
+                  <label for="doctorAvailableDays" class="form-label">Días Disponibles</label>
+                  <input type="text" class="form-control" id="doctorAvailableDays" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Agregar Doctor</button>
+              </form>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Doctores</h3>
             </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Doctores</h3>
-                </div>
-                
-                <div class="card-body p-0">
-                    <p class="text-muted p-3">Una lista de todos los doctores disponibles en tu clínica.</p>
+            <div class="card-body p-0">
 
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th style="width: 40%;">Nombre</th>
-                                <th style="width: 35%;">Especialidad</th>
-                                <th style="width: 25%;">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody id="doctorsTableBody">
-                            
-                        </tbody>
-                    </table>
-                </div>
+
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 30%;">Nombre</th>
+                    <th style="width: 30%;">Especialidad</th>
+                    <th style="width: 20%;">Días Disponibles</th>
+                    <th style="width: 20%;">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="doctorsTableBody">
+
+                </tbody>
+              </table>
             </div>
+          </div>
         </div>
       </div>
     </main>
-      </div>
+  </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
     crossorigin="anonymous"></script>
