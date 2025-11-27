@@ -10,14 +10,19 @@ export async function getAppointmentById(id) {
   return apiAP.get(`${APPOINTMENTS_PATH}/${id}`);
 }
 
-export async function createAppointment({ patientId, doctorId, fecha, hora, estado }) {
-  return apiAP.post(APPOINTMENTS_PATH, { patientId, doctorId, fecha, hora, estado });
+export async function createAppointment({ patientId, doctor, fecha, hora, estado }) {
+  return apiAP.post(APPOINTMENTS_PATH, { patientId, doctor, fecha, hora, estado });
 }
 
-export async function updateAppointment(id, { patientId, doctorId, fecha, hora, estado }) {
-  return apiAP.put(`${APPOINTMENTS_PATH}/${id}`, { patientId, doctorId, fecha, hora, estado });
+export async function updateAppointment(id, { patientId, doctor, fecha, hora, estado }) {
+  return apiAP.put(`${APPOINTMENTS_PATH}/${id}`, { patientId, doctor, fecha, hora, estado });
 }
 
 export async function deleteAppointment(id) {
   return apiAP.delete(`${APPOINTMENTS_PATH}/${id}`);
+}
+
+export async function getAppointmentsByUser(userId) {
+  const allAppointments = await getAllAppointments();
+  return allAppointments.filter(ap => Number(ap.patientId) === Number(userId));
 }

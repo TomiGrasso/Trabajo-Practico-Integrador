@@ -52,7 +52,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (doctorId && fecha && hora && patientId) { 
             const appointmentData = {
                 patientId: parseInt(patientId), // Usa el ID del usuario en sesión
-                doctorId: parseInt(doctorId),
+                doctor: {
+                      id: doctorId,
+                      nombre: doctorSelect.selectedOptions[0].textContent.split(" - ")[0],
+                      especialidad: doctorSelect.selectedOptions[0].textContent.split(" - ")[1]
+                    },
                 fecha,
                 hora,
                 estado

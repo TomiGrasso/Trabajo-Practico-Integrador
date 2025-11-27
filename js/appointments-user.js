@@ -1,5 +1,6 @@
 import { getAllDoctors } from "./services/doctorsService.js";
 import { createAppointment } from "./services/appointmentsService.js";
+import { getSession } from "./modules/auth.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
     const doctorSelect = document.getElementById("doctor-select");
@@ -28,7 +29,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const user = JSON.parse(localStorage.getItem("currentUser"));
+        const user = getSession();
         if (!user) {
             alert("Debes iniciar sesión");
             return;
@@ -36,7 +37,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const nuevaCita = {
             patientId: user.id,
-            doctorId: doctorSelect.value,
+            doctorId: Number(doctorSelect.value),
             fecha: fechaInput.value,
             hora: horaSelect.value,
             estado: "pendiente"
